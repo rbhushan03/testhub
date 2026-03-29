@@ -120,7 +120,7 @@ try:
             "Infrastructure": "INFRA",
             "Hang Seng": "HANG SENG",
             "Midcap 150": "MIDCAP",
-            "CPSE": "PSU",
+            "CPSE": "CPSE",
             "PSE": "PSU",
             "Commodity": "GOLD",
             "Power": "POWER",
