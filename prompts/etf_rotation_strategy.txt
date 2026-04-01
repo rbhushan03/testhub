@@ -1,0 +1,101 @@
+Prompts for ETF Rotation Strategy 
+Script generated will be : `src/main/common/etf_rotation_strategy.py`
+
+Role:
+Act as a senior equity research analyst with strong expertise in Python-based quantitative stock/ETF analysis.
+
+## Objective
+
+Develop a Python script that implements an ETF rotation strategy using local bhavcopy data.
+
+
+## Strategy Logic
+1. Data Extraction
+	- Load the most recent 350 trading days of data based on today’s date.
+	- Extract data only for the specified ETF symbols (etf_list).
+2. Trend Filter (200-day SMA)
+	- Calculate the 200-day Simple Moving Average (SMA) for each ETF.
+	- Exclude any ETF where:
+		Latest Close Price < 200-day SMA
+		
+3. Momentum Calculation (ROC)
+	- Calculate Rate of Change (ROC) for each ETF.
+	- ROC should be based on a configurable lookback period in months:
+		1 month ≈ 21 trading days
+		2 months ≈ 42 trading days
+		etc. 
+		Default lookback should be 1 month. If it is 1 month means it should use 21st rows if extracted data sorted in descending order. 
+	- Formula:
+		ROC (%) = ((Current Price / Price N days ago) - 1) * 100
+4. Ranking
+	- Rank all remaining ETFs based on ROC (descending).
+	- Highest ROC = Rank 1.
+	
+## ETF Universe
+etf_list = [
+    'SILVERBEES', 'GOLDBEES', 'NIFTYBEES', 'MID150BEES', 'ITBEES',
+    'BANKBEES', 'HDFCSML250', 'JUNIORBEES', 'MON100', 'CPSEETF',
+    'PSUBNKBEES', 'MODEFENCE', 'PVTBANIETF', 'PHARMABEES', 'ENERGY',
+    'MOM30IETF', 'FMCGIETF', 'METAL', 'BFSI', 'ICICIB22',
+    'HNGSNGBEES', 'AUTOBEES', 'MOREALTY', 'MOMENTUM50', 'ALPL30IETF',
+    'SENSEXIETF', 'OILIETF', 'INFRAIETF', 'GROWWPOWER', 'MIDSMALL',
+    'CONSUMBEES', 'LOWVOLIETF', 'HEALTHIETF', 'EVINDIA', 'CHEMICAL',
+    'TNIDETF', 'MNC', 'MAKEINDIA', 'ECAPINSURE', 'MOTOUR',
+    'MSCIINDIA', 'ESG'
+]
+
+## Data Source
+
+Local NSE bhavcopy files stored at:
+
+C:\Users\Ravi\workspace\testhub\data\bhavcopy\2025\*.csv
+C:\Users\Ravi\workspace\testhub\data\bhavcopy\2026\*.csv
+
+File naming format:
+
+sec_bhavdata_full_YYYYMMDD.csv
+
+Each file represents one trading day.
+Required columns:
+	SYMBOL
+	OPEN_PRICE
+	CLOSE_PRICE
+
+
+## Script Requirements
+	- Use pandas for data processing
+	- Use the tabulate or rich library for prettier tables
+	- Automatically:
+		- Parse date from filename
+		- Combine multiple files
+		- Sort data correctly per ETF
+	- Handle:
+		-Missing data
+		-Insufficient history (< 200 days)
+
+## CLI Interface
+
+The script should support command-line arguments:
+
+python etf_rotation_strategy.py                  # Default: 1-month ROC
+python etf_rotation_strategy.py --lookback 2     # 2-month ROC
+python etf_rotation_strategy.py --lookback 3 --top 5  # Top 5 ETFs
+
+## Output Format
+
+Display start date and end date used for data extraction for validation purpose.
+Display if any data ignored due to not meeting criteria.
+Display results in a ranked table:
+
+╭──────┬────────────┬──────────┬─────────┬────────────┬─────────╮
+│ Rank │ ETF        │ Lookback │ ROC (%) │ Last Price │ SMA 200 │
+├──────┼────────────┼──────────┼─────────┼────────────┼─────────┤
+│    1 │ MODEFENCE  │ 1M       │   12.34 │     112.50 │   98.20 │
+│    2 │ GOLDBEES   │ 1M       │    9.87 │    6234.00 │ 5890.10 │
+
+
+## Expected Output
+	- A clean, production-ready Python script
+	- Modular functions (data loading, processing, calculation, output)
+	- Readable and maintainable code
+	- Error handling included

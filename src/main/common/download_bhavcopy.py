@@ -50,15 +50,15 @@ with open(marker_file, 'w') as f:
 # Define variables
 base_url = "https://archives.nseindia.com/products/content/sec_bhavdata_full_"
 local_folder = "c:/Users/Ravi/workspace/testhub/"
-base_folder = "data/bhavcopy/2025/"
+base_folder = "data/bhavcopy/2026/"
 
 # Download data in loop for multiple dates (uncomment to use)
 # start_date = datetime.date(2025, 12, 1)
 # end_date = datetime.date(2025, 12, 10)
 # delta = datetime.timedelta(days=1)    
 
-start_date = datetime(2025, 1, 1)
-end_date = datetime(2025, 10, 24)   #datetime(2025, 10, 24)
+start_date = datetime(2026, 4, 1)
+end_date = datetime(2026, 4, 1)   #datetime(2025, 10, 24)
 
 for i in range((end_date - start_date).days + 1):
     date = start_date + timedelta(days=i)
