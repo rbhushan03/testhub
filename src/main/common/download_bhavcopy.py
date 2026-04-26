@@ -57,8 +57,8 @@ base_folder = "data/bhavcopy/2026/"
 # end_date = datetime.date(2025, 12, 10)
 # delta = datetime.timedelta(days=1)    
 
-start_date = datetime(2026, 4, 1)
-end_date = datetime(2026, 4, 1)   #datetime(2025, 10, 24)
+start_date = datetime(2026, 4, 20)
+end_date = datetime(2026, 4, 24)   #datetime(2025, 10, 24)
 
 for i in range((end_date - start_date).days + 1):
     date = start_date + timedelta(days=i)

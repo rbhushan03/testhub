@@ -154,9 +154,7 @@ def run_backtest(data_dir: str, years: List[str], lookback_months: int = 1, top_
 
     months = get_month_calendar(unique_dates)
 
-    # Strategy start cutoff: ignore months before 1-Jan-2024 (no trading before this)
-    strategy_start = datetime(2024, 1, 1)
-    months = [(f, l) for (f, l) in months if pd.Timestamp(f) >= pd.Timestamp(strategy_start)]
+    # Use all months discovered in the provided data/years (do not force a fixed start)
 
     capital = float(initial_capital)
     equity_curve = []  # monthly end capital
