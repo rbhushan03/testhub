@@ -9,9 +9,9 @@ Objective:
 - Return Top 10 ETFs with the lowest RSI values
 
 Usage:
-    python rsi_etf_scanner.py
-    python rsi_etf_scanner.py --period 14 --top 10
-    python rsi_etf_scanner.py --base-folder data/bhavcopy/2026/ --period 14 --top 10
+    python .\src\main\common\rsi_etf_scanner.py
+    python .\src\main\common\rsi_etf_scanner.py --period 14 --top 10
+    python .\src\main\common\rsi_etf_scanner.py --base-folder data/bhavcopy/2026/ --period 14 --top 10
 """
 
 import os
