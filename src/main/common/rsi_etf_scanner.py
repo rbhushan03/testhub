@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+r"""
 RSI ETF Scanner
 
 Objective:
@@ -20,6 +20,7 @@ import re
 from datetime import datetime
 import pandas as pd
 import numpy as np
+from tabulate import tabulate
 
 
 ETF_LIST = [
@@ -281,9 +282,12 @@ def main():
         top_n = min(args.top, len(results_df))
         print(f"\nTop {top_n} ETFs with Lowest RSI({args.period}):\n")
         
-        # Format output
+        # Format output as bordered table
         display_df = results_df.head(top_n).copy()
-        print(display_df.to_string(index=False))
+        table_data = display_df.values.tolist()
+        headers = display_df.columns.tolist()
+        
+        print(tabulate(table_data, headers=headers, tablefmt='grid', floatfmt='.1f'))
         
         print(f"\n(Scanned {len(results_df)} ETFs total with sufficient data)")
     
